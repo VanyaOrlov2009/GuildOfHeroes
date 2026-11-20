@@ -1,15 +1,23 @@
-﻿Hero yaroslav = new Hero("Ярослав", 100);
-Hero anastasia = new Hero("Анастасия", 90);
-Hero artem = new Hero("Артём", 120);
-Hero alexander = new Hero("Александр", 150);
+﻿// Hero yaroslav = new Hero("Ярослав", 100);
+// Hero anastasia = new Hero("Анастасия", 90);
+// Hero artem = new Hero("Артём", 120);
+// Hero alexander = new Hero("   Александр   ", 150);
 
-Console.WriteLine(yaroslav.GetInfo());
-Console.WriteLine();
-Console.WriteLine(anastasia.GetInfo());
-Console.WriteLine();
-Console.WriteLine(artem.GetInfo());
-Console.WriteLine();
-Console.WriteLine(alexander.GetInfo());
+// alexander.TakeDamage(10);
+// alexander.Heal(10);
+
+// Console.WriteLine(">>> Участники готовы <<<");
+// Console.WriteLine();
+// Console.WriteLine(yaroslav.GetInfo());
+// Console.WriteLine();
+// Console.WriteLine(anastasia.GetInfo());
+// Console.WriteLine();
+// Console.WriteLine(artem.GetInfo());
+// Console.WriteLine();
+// Console.WriteLine(alexander.GetInfo());
+// Console.WriteLine($"Предел здоровья Александра: {alexander.MaxHealth}");
+
+
 
 
 
@@ -64,3 +72,20 @@ Console.WriteLine(alexander.GetInfo());
 // Console.WriteLine($"Год релиза: {game3.ReleaseDate}");
 // Console.WriteLine($"Рейтинг: {game3.Rating}");
 // Console.WriteLine($"Скачано: {game3.IsDownloaded}");
+
+
+
+Game proverka1 = new Game("Test Game", "Shooter", 2024, 15.5);
+Console.WriteLine($"После создания с 15.5: {proverka1.Rating}");
+
+Game proverka2 = new Game("Portal 2", "Action", 2011, 8.0);
+Console.WriteLine($"До изменения: {proverka2.Rating}");
+
+proverka2.ChangeRating(1.5);
+Console.WriteLine($"После допустимого: {proverka2.Rating}");
+
+proverka2.ChangeRating(5.0);
+Console.WriteLine($"После недопустимого: {proverka2.Rating}");
+
+proverka2.ChangeRating(-20.0);
+Console.WriteLine($"После сильного уменьшения -20.0: {proverka2.Rating}"); 

@@ -10,14 +10,38 @@ public class Game {
         Title = title;
         Genre = genre;
         ReleaseDate = releaseYear;
-        Rating = rating;
+        
+        if (rating < 0) {
+            Rating = 0;
+        } else if (rating > 10) {
+            Rating = 10;
+        } else {
+            Rating = rating;
+        } 
     }
-    
+
 
     public void Download() {
         if (IsDownloaded) {
             return;
         }
         IsDownloaded = true;
+    }
+    
+
+    public void ChangeRating(double otziv) {
+        double update = Rating + otziv;
+
+        if (update < 0) {
+            Rating = 0;
+            return;
+        }
+
+        if (update > 10) {
+            Rating = 10;
+            return;
+        }
+
+        Rating = update;    
     }
 }
