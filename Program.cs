@@ -1,91 +1,98 @@
-﻿// Hero yaroslav = new Hero("Ярослав", 100);
+﻿//Probe.Run();
+// Hero yaroslav = new Hero("Ярослав", 100);
 // Hero anastasia = new Hero("Анастасия", 90);
 // Hero artem = new Hero("Артём", 120);
 // Hero alexander = new Hero("   Александр   ", 150);
+// Hero sergey = new Hero("Сергей", 110);
+
 
 // alexander.TakeDamage(10);
 // alexander.Heal(10);
 
-// Console.WriteLine(">>> Участники готовы <<<");
-// Console.WriteLine();
-// Console.WriteLine(yaroslav.GetInfo());
-// Console.WriteLine();
-// Console.WriteLine(anastasia.GetInfo());
-// Console.WriteLine();
-// Console.WriteLine(artem.GetInfo());
-// Console.WriteLine();
-// Console.WriteLine(alexander.GetInfo());
-// Console.WriteLine($"Предел здоровья Александра: {alexander.MaxHealth}");
+// Guild guild = new Guild("Гильдия героев");
+// guild.Heroes.Add(yaroslav);
+// guild.Heroes.Add(anastasia);
+// guild.Heroes.Add(artem);
+// guild.Heroes.Add(alexander);
+// guild.Heroes.Add(sergey);
+// Console.WriteLine($">>> {guild.Name}: перекличка <<<");
+// Console.WriteLine($"Участников: {guild.Heroes.Count}");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Game game1 = new Game("CS2", "Shooter", 2023, 5.5);
-// Game game2 = new Game("Minecraft", "Sandbox", 2011, 8.4);
-
-
-// Console.WriteLine($"Скачана ли игра: {game2.IsDownloaded}");
-// game2.Download(); 
-// Console.WriteLine($"После скачивания: {game2.IsDownloaded}");
-// game2.Download();
-
-
-// Game game3 = new Game("Cyberpunk 2077", "Action", 2020, 8.6);
-
-// game1.Rating = 5.4;
-// game2.Rating = 9.0;
-
-// Console.WriteLine(">>> Игра 1 <<<");
-// Console.WriteLine($"Название: {game1.Title}");
-// Console.WriteLine($"Жанр: {game1.Genre}");
-// Console.WriteLine($"Год релиза: {game1.ReleaseDate}");
-// Console.WriteLine($"Рейтинг: {game1.Rating}");
-// Console.WriteLine($"Скачано: {game1.IsDownloaded}");
+// if (guild.Heroes.Count > 0) {
+//     Console.WriteLine($"Первый: {guild.Heroes[0].Name}");
+//     Console.WriteLine($"Последний: {guild.Heroes[guild.Heroes.Count - 1].Name}");
+// }
 
 // Console.WriteLine();
-
-// Console.WriteLine(">>> Игра 2 <<<");
-// Console.WriteLine($"Название: {game2.Title}");
-// Console.WriteLine($"Жанр: {game2.Genre}");
-// Console.WriteLine($"Год релиза: {game2.ReleaseDate}");
-// Console.WriteLine($"Рейтинг: {game2.Rating}");
-// Console.WriteLine($"Скачано: {game2.IsDownloaded}");
+// foreach (Hero hero in guild.Heroes) {
+//     Console.WriteLine(hero.GetInfo());
+//     Console.WriteLine();
+// }
 
 // Console.WriteLine();
+// int strongCount = 0;
+// foreach (Hero hero in guild.Heroes) {
+//     if (hero.Health >= 120) {
+//         strongCount++;
+//     }
+// }
+// Console.WriteLine($"Могут нести тяжёлые ящики (здоровье от 120): {strongCount}");
 
-// Console.WriteLine(">>> Игра 3 <<<");
-// Console.WriteLine($"Название: {game3.Title}");
-// Console.WriteLine($"Жанр: {game3.Genre}");
-// Console.WriteLine($"Год релиза: {game3.ReleaseDate}");
-// Console.WriteLine($"Рейтинг: {game3.Rating}");
-// Console.WriteLine($"Скачано: {game3.IsDownloaded}");
+
+// Console.WriteLine();
+// if (guild.Heroes.Count > 0) {
+//     Hero strongest = guild.Heroes[0];
+//     foreach (Hero hero in guild.Heroes) {
+//         if (hero.Health > strongest.Health) {
+//             strongest = hero;
+//         }
+//     }
+//     Console.WriteLine($"Самый здоровый: {strongest.Name}");
+// }
 
 
 
-Game proverka1 = new Game("Test Game", "Shooter", 2024, 15.5);
-Console.WriteLine($"После создания с 15.5: {proverka1.Rating}");
 
-Game proverka2 = new Game("Portal 2", "Action", 2011, 8.0);
-Console.WriteLine($"До изменения: {proverka2.Rating}");
 
-proverka2.ChangeRating(1.5);
-Console.WriteLine($"После допустимого: {proverka2.Rating}");
 
-proverka2.ChangeRating(5.0);
-Console.WriteLine($"После недопустимого: {proverka2.Rating}");
 
-proverka2.ChangeRating(-20.0);
-Console.WriteLine($"После сильного уменьшения -20.0: {proverka2.Rating}"); 
+
+
+
+Game game1 = new Game("CS2", "Shooter", 2023, 5.5);
+Game game2 = new Game("Minecraft", "Sandbox", 2011, 8.4);
+Game game3 = new Game("Cyberpunk 2077", "Action", 2020, 8.6);
+
+List<Game> games = new List<Game>();
+games.Add(game1);
+games.Add(game2);
+games.Add(game3);
+
+Console.WriteLine($"Игр в списке: {games.Count}");
+if (games.Count > 0) {
+    Console.WriteLine($"Первая игра: {games[0].Title}");
+    Console.WriteLine($"Последняя игра: {games[games.Count - 1].Title}");
+}
+
+Console.WriteLine();
+foreach (Game game in games) {
+    Console.WriteLine(game.GetInfo());
+    Console.WriteLine();
+}
+
+Game game4 = new Game("Terraria", "Adventure", 2011, 9.3);
+games.Add(game4);
+
+int highCount = 0;
+foreach (Game game in games) {
+    if (game.Rating >= 8.5) {
+        highCount++;
+    }
+}
+Console.WriteLine($"Игр с рейтингом от 8.5: {highCount}");
+
+
+Console.WriteLine($"До скачивания через список: {games[0].IsDownloaded}");
+game1.Download();
+Console.WriteLine($"После game1.Download() через список: {games[0].IsDownloaded}");

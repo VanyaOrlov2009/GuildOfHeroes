@@ -27,7 +27,7 @@ public class Game {
         }
         IsDownloaded = true;
     }
-    
+
 
     public void ChangeRating(double otziv) {
         double update = Rating + otziv;
@@ -42,6 +42,14 @@ public class Game {
             return;
         }
 
-        Rating = update;    
+        Rating = update;
+    }
+    
+    public string GetInfo() {
+        return $">>> {Title} <<<\n" +
+            $"Жанр: {Genre}\n" +
+            $"Год релиза: {ReleaseDate}\n" +
+            $"Рейтинг: {Rating}\n" +
+            $"Скачано: {IsDownloaded}";
     }
 }
