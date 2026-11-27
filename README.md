@@ -119,3 +119,31 @@
 ### Личный проект
 - TryFinish меняет IsDownloaded на true и IsCompleted на true
 - если в TryStart создать копию объекта Download() изменит её а у игры в catalog IsDownloaded останется false
+
+
+
+
+
+## лаба 7
+***ОТВЕТЫ НА ВОПРОСЫ, шаг 14***
+
+1. два bool дают лишние сочетания (например и выполнено и отменено), а enum даёт одно чёткое состояние
+2. Completed и Cancelled - дело либо закрыто с наградой либо отменено, дальше переходов нет
+3. в Open исполнителя нет его ставит TryAssign и сразу переводит в Assigned, поэтому хватило проверки Status != QuestStatus.Open
+4. нигде как отдельное поле - вычисляется IsAssigned
+5. TryAssign уже успеет поменять статус на Assigned, поэтому проверка увидит героя занятым этим же делом и вернёт false при уже изменённом состоянии
+6. чтобы не удалить героя, на которого ещё есть ссылки в поручениях
+
+- трассировка: прогноз True, False, True, True, False, True, False, False, 10; состояния: 1) Assigned, Open; 2) Assigned, Open; 3) Completed, Open; 4) Completed Assigned; 5) Completed, Assigned; 6) Completed, Cancelled; 7) Completed, Cancelled; 8–9) без изменений
+- ошибка 1: в IsAssigned не проверялся статус Assigned, поэтому старое выполненное №101 держало cергея занятым навсегда
+- ошибка 2: IsAssigned вызвали после quest.TryAssign поэтому поручение уже перевелось в Assigned а доска затем увидела занятость и вернула false
+- самостоятельный шаг: CountByStatus считает поручения нужного статуса; FindActiveQuest ищет активное поручение героя или null; IsAssigned можно в одну строку через поиск активного поручения
+
+### Личный проект
+- | Сейчас | `TryStart` | `TryFinish` | `TryCancel` |   
+| `Open` | → `Active` | отказ | → `Cancelled` |
+| `Active` | отказ | → `Completed` | → `Cancelled` |
+| `Completed` | отказ | отказ | отказ |
+| `Cancelled` | отказ | отказ | отказ |
+- конечные состояния: Completed и Cancelled
+- занятость вычисляется чтобы не расходится с реальным состоянием

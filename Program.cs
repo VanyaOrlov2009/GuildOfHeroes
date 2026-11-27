@@ -23,28 +23,54 @@
 
 // QuestBoard board = new QuestBoard(guild);
 
-// Quest floatQuest = new Quest(101, "Вернуть поплавок", 100, 30);
-// Console.WriteLine($"Поручение добавлено: {board.AddQuest(floatQuest)}");
-// Console.WriteLine($">>> №{floatQuest.Id}: {floatQuest.Title} <<<");
 
 
-// Console.WriteLine($"Назначение Сергея: {board.TryAssign(101, " сЕрГеЙ ")}");
-// Hero? assigned = floatQuest.AssignedHero;
-// if (assigned != null) {
-//     Console.WriteLine($"Исполнитель: {assigned.Name}");
+// board.AddQuest(new Quest(101, "Вернуть поплавок", 100, 30));
+// board.TryAssign(101, "Сергей");
+// board.TryComplete(101);
+
+// board.AddQuest(new Quest(102, "Проверить нижнюю площадку", 100, 10));
+// board.AddQuest(new Quest(103, "Снять мерки для насоса больницы", 100, 20));
+// board.AddQuest(new Quest(104, "Обследовать ответвление", 100, 15));
+
+// Console.WriteLine($"Сергей на №102: {board.TryAssign(102, "Сергей")}");
+// Console.WriteLine($"Сергей на №103: {board.TryAssign(103, "Сергей")}");
+// Console.WriteLine($"Отмена №102: {board.TryCancel(102)}");
+// Console.WriteLine($"Сергей на №103: {board.TryAssign(103, "Сергей")}");
+// Console.WriteLine($"Завершение №103: {board.TryComplete(103)}");
+// Console.WriteLine($"Ярослав на №104: {board.TryAssign(104, "Ярослав")}");
+// Console.WriteLine($"Удалить Сергея: {board.TryRemoveMember("Сергей")}");
+
+// Console.WriteLine();
+// List<Quest> quests = board.GetQuests();
+// foreach (Quest quest in quests) {
+//     Console.WriteLine(quest.GetInfo());
 // }
-// Console.WriteLine($"Опыт после назначения: {sergey.Experience}");
 
 
-// Console.WriteLine($"Завершение: {board.TryComplete(101)}");
-// Console.WriteLine($"Опыт после завершения: {sergey.Experience}");
-// Console.WriteLine($"Повторное завершение: {board.TryComplete(101)}");
-// Console.WriteLine($"Опыт после повтора: {sergey.Experience}");
+// Console.WriteLine($"Открыто: {board.CountByStatus(QuestStatus.Open)}, " +
+//                   $"назначено: {board.CountByStatus(QuestStatus.Assigned)}, " +
+//                   $"выполнено: {board.CountByStatus(QuestStatus.Completed)}, " +
+//                   $"отменено: {board.CountByStatus(QuestStatus.Cancelled)}");
+
+// Quest? yaroslavQuest = board.FindActiveQuest("Ярослав");
+// if (yaroslavQuest != null) {
+//     Console.WriteLine($"Ярослав сейчас: №{yaroslavQuest.Id} «{yaroslavQuest.Title}»");
+// }
+
+// Quest? sergeyQuest = board.FindActiveQuest("Сергей");
+// if (sergeyQuest == null) {
+//     Console.WriteLine("Сергей сейчас: свободен");
+// }
+
 
 
 // Console.WriteLine();
-// Console.WriteLine(floatQuest.GetInfo());
 // Console.WriteLine(sergey.GetInfo());
+
+
+
+
 
 
 
@@ -99,19 +125,15 @@ foreach (Game game in catalogGames) {
 
 
 
-Console.WriteLine(">>> Операция установки игры <<<");
+Console.WriteLine(">>> Состояния установки <<<");
 
-GameInstall install = new GameInstall(501, 8.0);
+GameInstall install1 = new GameInstall(601, 8.0);
+GameInstall install2 = new GameInstall(602, 8.0);
 
-Console.WriteLine($"Завершить до старта: {install.TryFinish()}");
-Console.WriteLine($"Старт для CS2: {install.TryStart(game1)}");
-Console.WriteLine($"Старт для Minecraft: {install.TryStart(game2)}");
-Console.WriteLine($"Повторный старт: {install.TryStart(game3)}");
+catalog.AddInstall(install1);
+catalog.AddInstall(install2);
 
-Console.WriteLine($"Завершение установки: {install.TryFinish()}");
-Console.WriteLine($"Повторное завершение: {install.TryFinish()}");
-
-Game? checkGame = catalog.FindGameByTitle("minecraft");
-if (checkGame != null) {
-    Console.WriteLine($"Игра после операции: {checkGame.Title}, скачано: {checkGame.IsDownloaded}");
-}
+Console.WriteLine($"Первый старт для Minecraft: {catalog.TryStartInstall(601, "Minecraft")}");
+Console.WriteLine($"Второй старт для Minecraft: {catalog.TryStartInstall(602, "Minecraft")}");
+Console.WriteLine($"Отмена первой установки: {catalog.TryCancelInstall(601)}");
+Console.WriteLine($"Повторный старт для Minecraft: {catalog.TryStartInstall(602, "Minecraft")}");

@@ -2,7 +2,7 @@ public class GameInstall {
     public int Id { get; private set; }
     public double MinRating { get; private set; }
     public Game? TargetGame { get; private set; }
-    public bool IsCompleted { get; private set; }
+    public GameInstallStatus Status { get; private set; }
 
     public GameInstall(int id, double minRating) {
         Id = id;
@@ -16,11 +16,11 @@ public class GameInstall {
         }
 
         TargetGame = null;
-        IsCompleted = false;
+        Status = GameInstallStatus.Open;
     }
 
     public bool TryStart(Game game) {
-        if (IsCompleted) {
+        if (Status != GameInstallStatus.Open) {
             return false;
         }
         if (TargetGame != null) {
@@ -34,11 +34,12 @@ public class GameInstall {
         }
 
         TargetGame = game;
+        Status = GameInstallStatus.Active;
         return true;
     }
 
     public bool TryFinish() {
-        if (IsCompleted) {
+        if (Status != GameInstallStatus.Active) {
             return false;
         }
 
@@ -48,7 +49,18 @@ public class GameInstall {
         }
 
         game.Download();
-        IsCompleted = true;
+        Status = GameInstallStatus.Completed;
+        return true;
+    }
+
+
+
+    public bool TryCancel() {
+        if (Status != GameInstallStatus.Open && Status != GameInstallStatus.Active) {
+            return false;
+        }
+
+        Status = GameInstallStatus.Cancelled;
         return true;
     }
 }
