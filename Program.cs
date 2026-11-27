@@ -1,4 +1,4 @@
-﻿// Probe.Run();
+﻿//Probe.Run();
 // Hero yaroslav = new Hero("Ярослав", 100);
 // Hero anastasia = new Hero("Анастасия", 90);
 // Hero artem = new Hero("Артём", 120);
@@ -17,49 +17,34 @@
 // guild.AddHero(sergey);
 // List<Hero> members = guild.GetMembers();
 
-// Console.WriteLine($">>> {guild.Name}: перекличка <<<");
-// Console.WriteLine($"Участников: {guild.MemberCount}");
-
-
-// if (members.Count > 0) {
-//     Console.WriteLine($"Первый: {members[0].Name}");
-//     Console.WriteLine($"Последний: {members[members.Count - 1].Name}");
-// }
-
+// Console.WriteLine($">>> {guild.Name}: участников {guild.MemberCount} <<<");
 // Console.WriteLine();
-// foreach (Hero hero in members) {
-//     Console.WriteLine(hero.GetInfo());
-//     Console.WriteLine();
+
+
+// QuestBoard board = new QuestBoard(guild);
+
+// Quest floatQuest = new Quest(101, "Вернуть поплавок", 100, 30);
+// Console.WriteLine($"Поручение добавлено: {board.AddQuest(floatQuest)}");
+// Console.WriteLine($">>> №{floatQuest.Id}: {floatQuest.Title} <<<");
+
+
+// Console.WriteLine($"Назначение Сергея: {board.TryAssign(101, " сЕрГеЙ ")}");
+// Hero? assigned = floatQuest.AssignedHero;
+// if (assigned != null) {
+//     Console.WriteLine($"Исполнитель: {assigned.Name}");
 // }
+// Console.WriteLine($"Опыт после назначения: {sergey.Experience}");
 
 
-// Hero? found = guild.FindHeroByName(" аРтЁм ");
-// if (found != null) {
-//     Console.WriteLine($"Найден по запросу « аРтЁм »: {found.Name}");
-// } else {
-//     Console.WriteLine("По запросу « аРтЁм » никого нет.");
-// }
-
-// Console.WriteLine($"Повтор Александра принят: {guild.AddHero(alexander)}");
-
-
-// Console.WriteLine($"Удалён отсутствующий: {guild.RemoveHero("Борис")}");
-// Console.WriteLine($"Участников после проверок: {guild.MemberCount}");
-
+// Console.WriteLine($"Завершение: {board.TryComplete(101)}");
+// Console.WriteLine($"Опыт после завершения: {sergey.Experience}");
+// Console.WriteLine($"Повторное завершение: {board.TryComplete(101)}");
+// Console.WriteLine($"Опыт после повтора: {sergey.Experience}");
 
 
 // Console.WriteLine();
-// Console.WriteLine($"Могут нести тяжёлые ящики (здоровье от 120): {guild.CountHealthy(120)}");
-
-
-// Console.WriteLine();
-// Hero? strongest = guild.FindStrongest();
-// if (strongest != null) {
-//     Console.WriteLine($"Самый здоровый: {strongest.Name} ({strongest.Health})");
-// }
-
-
-
+// Console.WriteLine(floatQuest.GetInfo());
+// Console.WriteLine(sergey.GetInfo());
 
 
 
@@ -112,3 +97,21 @@ foreach (Game game in catalogGames) {
 
 
 
+
+
+Console.WriteLine(">>> Операция установки игры <<<");
+
+GameInstall install = new GameInstall(501, 8.0);
+
+Console.WriteLine($"Завершить до старта: {install.TryFinish()}");
+Console.WriteLine($"Старт для CS2: {install.TryStart(game1)}");
+Console.WriteLine($"Старт для Minecraft: {install.TryStart(game2)}");
+Console.WriteLine($"Повторный старт: {install.TryStart(game3)}");
+
+Console.WriteLine($"Завершение установки: {install.TryFinish()}");
+Console.WriteLine($"Повторное завершение: {install.TryFinish()}");
+
+Game? checkGame = catalog.FindGameByTitle("minecraft");
+if (checkGame != null) {
+    Console.WriteLine($"Игра после операции: {checkGame.Title}, скачано: {checkGame.IsDownloaded}");
+}
